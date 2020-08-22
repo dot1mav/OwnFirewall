@@ -23,7 +23,7 @@ if [ "$UNAME" == "Linux" ] ; then
   pythone -m pipenv install -r req.txt &> /dev/null
   clear
 
-  python3 main.py
+  python3 -m pipenv run python3 main.py
 elif [ "$UNAME" == "Darwin" ] ; then
 	echo "you use Darwin and this os not supported"
 	exit
