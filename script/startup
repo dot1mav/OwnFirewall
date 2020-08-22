@@ -1,0 +1,31 @@
+#! /bin/sh
+# /etc/init.d/fw
+#
+
+# Some things that run always
+#touch /var/lock/fw
+echo " Firewall Startup Scripts"
+# Carry out specific functions when asked to by the system
+case "$1" in
+    start)
+        echo " Starting Firewall "
+        iptables -F
+        bash /Firewall/Restore.sh
+        ;;
+    stop)
+        echo " Clear Firewall "
+        bash /Firewall/Save.sh
+        ;;
+    reload)
+        echo " Restarting Firewall "
+        bash /Firewall/Save.sh
+        iptables -F
+        bash /Firewall/Restore.sh
+  *)
+    echo "Usage: /etc/init.d/fw {start|stop|reload}"
+    exit 1
+    ;;
+esac
+
+exit 0
+
