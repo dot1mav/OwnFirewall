@@ -5,7 +5,7 @@ class Script(object):
     __os: str = None
 
     def __init__(self):
-        pass
+        os.system(f'bash ConfigSRV.sh')
 
     def __call__(self, *args, **kwargs):
         pass
