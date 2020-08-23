@@ -9,6 +9,10 @@ UNAME=$(uname)
 
 if [ "$UNAME" == "Linux" ] ; then
 
+  DIS=$(lsb_release -i | cut -f 2-)
+
+  if [[ "$DIS" == "Linuxmint" ]] || [[ "$DIS" == "Debian" ]] || [[ "$DIS" == "Ubuntu" ]]
+  then
   echo "..........................................................."
   echo "....install.python3.and.make.virtualenv.for.run.command...."
   echo "..........................................................."
@@ -24,6 +28,9 @@ if [ "$UNAME" == "Linux" ] ; then
   clear
 
   python3 -m pipenv run python3 main.py
+  else
+    echo "your distro is not supported"
+  fi
 elif [ "$UNAME" == "Darwin" ] ; then
 	echo "you use Darwin and this os not supported"
 	exit
