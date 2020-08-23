@@ -16,7 +16,7 @@ if [ "$UNAME" == "Linux" ] ; then
   echo "..........................................................."
   echo "....install.python3.and.make.virtualenv.for.run.command...."
   echo "..........................................................."
-
+  echo "\tyou use\t\t$DIS\t\t.\t"
   apt-get update &> /dev/null
   apt-get upgrade &> /dev/null
   apt-get install python3 python3-pip -y &> /dev/null
