@@ -7,6 +7,14 @@ class Script(object):
     def __init__(self):
         self.__welcome()
         time.sleep(2)
+        if not(os.path.isdir('/root/.ownfirewall')):
+            os.mkdir('/root/.ownfirewall')
+        os.system('cp Save.sh /root/.ownfirewall')
+        os.system('cp Restore.sh /root/.ownfirewall')
+        with open('/root/.ownfirewall/.config' , 'w') as fl:
+            fl.write('1')
+            fl.close()
+
 
     def __call__(self, *args, **kwargs):
         pass
@@ -22,6 +30,9 @@ class Script(object):
 
     def install_def_ps(self):
         os.system(f'bash PortScanner.sh')
+
+    def install_fail2ban(self):
+        pass
 
     def __welcome(self):
         print("...........................................\n\
