@@ -1,5 +1,4 @@
 <h1>OwnFirewall Project</h1>
-<hr>
 <br>in this project we make your firewall
 <br>we just config iptables
 <br>and we make startup file to save your rules and config
