@@ -1,2 +1,2 @@
 #!/bin/bash 
-iptables-restore < /Firewall/iptables
+iptables-restore < /root/.ownfirewall/.iptables.save
