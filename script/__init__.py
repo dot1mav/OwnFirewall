@@ -7,17 +7,13 @@ class Script(object):
     def __init__(self):
         self.__welcome()
         time.sleep(2)
-        if not(os.path.isdir('/root/.ownfirewall')):
+        if not (os.path.isdir('/root/.ownfirewall')):
             os.mkdir('/root/.ownfirewall')
         os.system('cp Save.sh /root/.ownfirewall')
         os.system('cp Restore.sh /root/.ownfirewall')
-        with open('/root/.ownfirewall/.config' , 'w') as fl:
+        with open('/root/.ownfirewall/.config', 'w') as fl:
             fl.write('1')
             fl.close()
-
-
-    def __call__(self, *args, **kwargs):
-        pass
 
     def make_service(self):
         os.system(f'bash MakeStartupFiles.sh')
@@ -46,6 +42,3 @@ class Script(object):
     ...........................................\n\
     ...........................................\n\
     ...........................................")
-
-
-
