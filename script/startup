@@ -10,17 +10,18 @@ case "$1" in
     start)
         echo " Starting Firewall "
         iptables -F
-        bash /Firewall/Restore.sh
+        bash /root/.ownfirewall/Restore.sh
         ;;
     stop)
         echo " Clear Firewall "
-        bash /Firewall/Save.sh
+        bash /root/.ownfirewall/Save.sh
+        iptables -F
         ;;
     reload)
         echo " Restarting Firewall "
-        bash /Firewall/Save.sh
+        bash /root/.ownfirewall/Save.sh
         iptables -F
-        bash /Firewall/Restore.sh
+        bash /root/.ownfirewall/Restore.sh
   *)
     echo "Usage: /etc/init.d/fw {start|stop|reload}"
     exit 1
