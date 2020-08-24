@@ -11,7 +11,7 @@ if [ "$UNAME" == "Linux" ] ; then
 
   DIS=$(lsb_release -i | cut -f 2-)
 
-  if [[ "$DIS" == "Linuxmint" ]] || [[ "$DIS" == "Debian" ]] || [[ "$DIS" == "Ubuntu" ]]
+  if [[ "$DIS" == "Linuxmint" || "$DIS" == "Debian" || "$DIS" == "Ubuntu" ]]
   then
   echo "..........................................................."
   echo "....install.python3.and.make.virtualenv.for.run.command...."
