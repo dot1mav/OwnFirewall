@@ -18,7 +18,7 @@ if [ "$UNAME" == "Linux" ] ; then
   echo "..........................................................."
   echo "!!!!You!Use!!!!!!!$DIS!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   apt-get update &> /dev/null
-  apt-get upgrade &> /dev/null
+  apt-get upgrade -y &> /dev/null
   apt-get install python3 python3-pip -y &> /dev/null
   python3 -m pip install pipenv &> /dev/null
   python3 -m pipenv check &> /dev/null
