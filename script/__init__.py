@@ -28,7 +28,7 @@ class Script(object):
         os.system(f'bash PortScanner.sh')
 
     def install_fail2ban(self):
-        pass
+        os.system(f'bash f2b.sh')
 
     def __welcome(self):
         print("...........................................\n\
