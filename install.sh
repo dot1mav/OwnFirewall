@@ -9,6 +9,12 @@ FILENAME="/etc/os-release"
 UNAME=""
 
 # FUNCTIONS
+db_install(){
+	apt-get update &> /dev/null
+	apt-get upgrade -y &> /dev/null
+	apt-get install python3 python3-pip -y &> /dev/null
+}
+
 getDistroName(){
 	if [[ -f "$FILENAME" ]] ; then
 		DISTRO=$(head -1  /etc/os-release | cut -f 2 -d '"' | cut -f 1 -d ' ')
@@ -42,6 +48,7 @@ install(){
 	if [[ "$DISTRO" == "Linuxmint" || "$DISTRO" == "Debian" || "$DISTRO" == "Ubuntu" ]]
 	then
 		echo "Debian Distro :)"
+		db_install
 	elif [[ "$DISTRO" == "Arch" || "$DISTRO" == "ManjaroLinux" ]] ; then
 		echo "Arch Base Distro :)"
 	elif [[ "$DISTRO" == "CentOS" || "$DISTRO" == "Fedora" || "$DISTRO" == "rhel" ]] ; then
@@ -49,7 +56,18 @@ install(){
 	else
 		echo $DISTRO
 		echo "Your distro is not supported :("
+		exit
 	fi
+
+	python3 -m pip install pipenv &> /dev/null
+	python3 -m pipenv check &> /dev/null
+	python3 -m pipenv lock &> /dev/null
+	python3 -m pipenv update &> /dev/null
+	pythone -m pipenv install -r req.txt &> /dev/null
+	clear
+
+
+	python3 -m pipenv run python3 main.py
 }
 
 main(){
