@@ -9,24 +9,7 @@ FILENAME="/etc/os-release"
 UNAME=""
 
 # FUNCTIONS
-
 getDistroName(){
-        if [[ -z  "$FILENAME" ]] ; then
-		if [[ -f "$DEBIAN_FILE" ]] ; then
-			DISTRO=$DEBIAN_NAME
-		else
-			echo "Unable to find your distro"
-		fi
-	else
-		CONTENT=$(head -1 $FILENAME 2> /dev/null)
-		DISTRO=$(echo $CONTENT | sed \
-			-e "s/[[:blank:]][Ll][Ii][Nn][Uu][Xx][[:blank:]]/ /g" \
-			-e "s/\(.*\)[[:blank:]]release.*/\1/" \
-			-e "s/[[:blank:]]/ /g" )
-        fi
-}
-
-findDistro(){
 	if [[ -f "$FILENAME" ]] ; then
 		DISTRO=$(head -1  /etc/os-release | cut -f 2 -d '"' | cut -f 1 -d ' ')
 	else
@@ -38,12 +21,24 @@ findDistro(){
 				-and -type f    2> /dev/null    \
 				| head -1 )
 	        fi
-        	getDistroName $FILENAME
+		if [[ -z  "$FILENAME" ]] ; then
+			if [[ -f "$DEBIAN_FILE" ]] ; then
+				DISTRO=$DEBIAN_NAME
+			else
+				echo "Unable to find your distro"
+			fi
+		else
+			CONTENT=$(head -1 $FILENAME 2> /dev/null)
+			DISTRO=$(echo $CONTENT | sed \
+				-e "s/[[:blank:]][Ll][Ii][Nn][Uu][Xx][[:blank:]]/ /g" \
+				-e "s/\(.*\)[[:blank:]]release.*/\1/" \
+				-e "s/[[:blank:]]/ /g" )
+		fi
 	fi
 }
 
 install(){
-	findDistro
+	getDistroName
 	if [[ "$DISTRO" == "Linuxmint" || "$DISTRO" == "Debian" || "$DISTRO" == "Ubuntu" ]]
 	then
 		echo "Debian Distro :)"
