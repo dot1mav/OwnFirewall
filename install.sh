@@ -1,40 +1,77 @@
 #!/bin/bash
-if [[ $EUID -ne 0 ]]; then
-   echo "please run as root"
-   exit 1
-fi
 
+ROOT="/etc"
+LSB_FILE="lsb-release"
+DISTRIB_SUFFIX="release"
+DEBIAN_FILE="/etc/debian_version"
+DEBIAN_NAME="Debian"
+FILENAME="/etc/os-release"
+UNAME=""
 
-UNAME=$(uname)
+# FUNCTIONS
+getDistroName(){
+	if [[ -f "$FILENAME" ]] ; then
+		DISTRO=$(head -1  /etc/os-release | cut -f 2 -d '"' | cut -f 1 -d ' ')
+	else
+		FILENAME="/etc/redhat-release"
+        	if [[ ! -f "$FILENAME" ]] ; then
+			FILENAME=$(find $ROOT/ -maxdepth 1      \
+				-name \*$DISTRIB_SUFFIX         \
+				-and ! -name $LSB_FILE          \
+				-and -type f    2> /dev/null    \
+				| head -1 )
+	        fi
+		if [[ -z  "$FILENAME" ]] ; then
+			if [[ -f "$DEBIAN_FILE" ]] ; then
+				DISTRO=$DEBIAN_NAME
+			else
+				echo "Unable to find your distro"
+			fi
+		else
+			CONTENT=$(head -1 $FILENAME 2> /dev/null)
+			DISTRO=$(echo $CONTENT | sed \
+				-e "s/[[:blank:]][Ll][Ii][Nn][Uu][Xx][[:blank:]]/ /g" \
+				-e "s/\(.*\)[[:blank:]]release.*/\1/" \
+				-e "s/[[:blank:]]/ /g" )
+		fi
+	fi
+}
 
-if [ "$UNAME" == "Linux" ] ; then
+install(){
+	getDistroName
+	if [[ "$DISTRO" == "Linuxmint" || "$DISTRO" == "Debian" || "$DISTRO" == "Ubuntu" ]]
+	then
+		echo "Debian Distro :)"
+	elif [[ "$DISTRO" == "Arch" || "$DISTRO" == "ManjaroLinux" ]] ; then
+		echo "Arch Base Distro :)"
+	elif [[ "$DISTRO" == "CentOS" || "$DISTRO" == "Fedora" || "$DISTRO" == "rhel" ]] ; then
+		echo "Redhat Distro :)"
+	else
+		echo $DISTRO
+		echo "Your distro is not supported :("
+	fi
+}
 
-  DIS=$(lsb_release -i | cut -f 2-)
+main(){
 
-  if [[ "$DIS" == "Linuxmint" || "$DIS" == "Debian" || "$DIS" == "Ubuntu" ]]
-  then
-  echo "..........................................................."
-  echo "....install.python3.and.make.virtualenv.for.run.command...."
-  echo "..........................................................."
-  echo "!!!!You!Use!!!!!!!$DIS!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  apt-get update &> /dev/null
-  apt-get upgrade -y &> /dev/null
-  apt-get install python3 python3-pip -y &> /dev/null
-  python3 -m pip install pipenv &> /dev/null
-  python3 -m pipenv check &> /dev/null
-  python3 -m pipenv lock &> /dev/null
-  python3 -m pipenv update &> /dev/null
-  pythone -m pipenv install -r req.txt &> /dev/null
-  clear
+	if [[ $EUID -ne 0 ]]; then
+	   echo "please run as root"
+	   exit 1
+	fi
 
-  python3 -m pipenv run python3 main.py
-  else
-    echo "your distro is not supported"
-  fi
-elif [ "$UNAME" == "Darwin" ] ; then
-	echo "you use Darwin and this os not supported"
-	exit
-elif [[ "$UNAME" == CYGWIN* || "$UNAME" == MINGW* ]] ; then
-	echo "you use Windows and this os not supported"
-	exit
-fi
+	UNAME=$(uname)
+
+	if [ "$UNAME" == "Linux" ] ; then
+		install
+	elif [ "$UNAME" == "Darwin" ] ; then
+		echo "you use Darwin and this os not supported"
+		exit
+	elif [[ "$UNAME" == CYGWIN* || "$UNAME" == MINGW* ]] ; then
+		echo "you use Windows and this os not supported"
+		exit
+	fi
+}
+
+##############################################################
+
+main
