@@ -17,6 +17,11 @@ db_install(){
 	apt-get install $PYTHON_PKG -y &> /dev/null
 }
 
+arch_install(){
+	pacman -Sy
+	pacman -Sq --noconfirm $PYTHON_PKG
+}
+
 getDistroName(){
 	if [[ -f $FILENAME ]] ; then
 		DISTRO=$(head -1  $FILENAME | cut -f 2 -d '"')
@@ -54,6 +59,7 @@ install(){
 		db_install
 	elif [ $DISTRO == "Arch" ] || [ $DISTRO == "ManjaroLinux" ] ; then
 		echo "Arch Base Distro :)"
+		arch_install
 	elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "Fedora" ] || [ $DISTRO == "rhel" ] ; then
 		echo "Redhat Distro :)"
 	else
