@@ -8,11 +8,13 @@ DEBIAN_NAME="Debian"
 FILENAME="/etc/os-release"
 UNAME=""
 
+PYTHON_PKG="python3 python3-pip"
+
 # FUNCTIONS
 db_install(){
 	apt-get update &> /dev/null
 	apt-get upgrade -y &> /dev/null
-	apt-get install python3 python3-pip -y &> /dev/null
+	apt-get install $PYTHON_PKG -y &> /dev/null
 }
 
 getDistroName(){
