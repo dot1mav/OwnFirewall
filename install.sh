@@ -16,18 +16,19 @@ db_install(){
 }
 
 getDistroName(){
-	if [[ -f "$FILENAME" ]] ; then
-		DISTRO=$(head -1  /etc/os-release | cut -f 2 -d '"' | cut -f 1 -d ' ')
+	if [[ -f $FILENAME ]] ; then
+		DISTRO=$(head -1  $FILENAME | cut -f 2 -d '"')
+		DISTRO=${DISTRO/Linux/}
 	else
 		FILENAME="/etc/redhat-release"
-        	if [[ ! -f "$FILENAME" ]] ; then
+        	if [[ ! -f $FILENAME ]] ; then
 			FILENAME=$(find $ROOT/ -maxdepth 1      \
 				-name \*$DISTRIB_SUFFIX         \
 				-and ! -name $LSB_FILE          \
 				-and -type f    2> /dev/null    \
 				| head -1 )
 	        fi
-		if [[ -z  "$FILENAME" ]] ; then
+		if [[ -z  $FILENAME ]] ; then
 			if [[ -f "$DEBIAN_FILE" ]] ; then
 				DISTRO=$DEBIAN_NAME
 			else
@@ -45,13 +46,13 @@ getDistroName(){
 
 install(){
 	getDistroName
-	if [[ "$DISTRO" == "Linuxmint" || "$DISTRO" == "Debian" || "$DISTRO" == "Ubuntu" ]]
-	then
+
+	if [ $DISTRO == "Mint" ] || [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubintu" ] ; then
 		echo "Debian Distro :)"
 		db_install
-	elif [[ "$DISTRO" == "Arch" || "$DISTRO" == "ManjaroLinux" ]] ; then
+	elif [ $DISTRO == "Arch" ] || [ $DISTRO == "ManjaroLinux" ] ; then
 		echo "Arch Base Distro :)"
-	elif [[ "$DISTRO" == "CentOS" || "$DISTRO" == "Fedora" || "$DISTRO" == "rhel" ]] ; then
+	elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "Fedora" ] || [ $DISTRO == "rhel" ] ; then
 		echo "Redhat Distro :)"
 	else
 		echo $DISTRO
@@ -79,12 +80,12 @@ main(){
 
 	UNAME=$(uname)
 
-	if [ "$UNAME" == "Linux" ] ; then
+	if [ $UNAME == "Linux" ] ; then
 		install
-	elif [ "$UNAME" == "Darwin" ] ; then
+	elif [ $UNAME == "Darwin" ] ; then
 		echo "you use Darwin and this os not supported"
 		exit
-	elif [[ "$UNAME" == CYGWIN* || "$UNAME" == MINGW* ]] ; then
+	elif [ $UNAME == CYGWIN* ] || [ $UNAME == MINGW* ] ; then
 		echo "you use Windows and this os not supported"
 		exit
 	fi
