@@ -9,7 +9,8 @@ if __name__ == '__main__':
             st.config_srv()
             break
         elif choose == 2:
-            st.config_clt()
+            #st.config_clt()
+            print('Not Ready Yet/Under Write')
             break
         else:
             print('choose wrong number\n')
