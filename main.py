@@ -1,7 +1,20 @@
 from script import Script
+import os
+
+def clear_firewall() -> None:
+    print("Do You Want Clear Your Rules(y/d=n)")
+    temp: str = input('> ')
+    if temp == 'y':
+        print('Are You Sure(Delete filter&nat&mangle(y/d=n)')
+        temp: str = input('> ')
+        if temp == 'y':
+            os.system('iptables -t filter -F')
+            os.system('iptables -t nat -F')
+            os.system('iptables -t mangle -F')
 
 if __name__ == '__main__':
     st = Script()
+    clear_firewall()
     while True:
         print('1.Config Server\n2.Config Client')
         choose: int = int(input('> '))
