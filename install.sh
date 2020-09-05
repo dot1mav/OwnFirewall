@@ -54,7 +54,7 @@ getDistroName(){
 install(){
 	getDistroName
 
-	if [ $DISTRO == "Mint" ] || [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubintu" ] ; then
+	if [ $DISTRO == "Mint" ] || [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubuntu" ] ; then
 		echo "Debian Distro :)"
 		db_install
 	elif [ $DISTRO == "Arch" ] || [ $DISTRO == "ManjaroLinux" ] ; then
