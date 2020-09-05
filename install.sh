@@ -63,7 +63,6 @@ install(){
 	elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "Fedora" ] || [ $DISTRO == "rhel" ] ; then
 		echo "Redhat Base Distro :)"
 	else
-		echo $DISTRO
 		echo "Your distro is not supported :("
 		exit
 	fi
