@@ -53,15 +53,15 @@ getDistroName(){
 
 install(){
 	getDistroName
-
+	echo $DISTRO
 	if [ $DISTRO == "Mint" ] || [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubuntu" ] ; then
-		echo "Debian Distro :)"
+		echo "Debian Base Distro :)"
 		db_install
 	elif [ $DISTRO == "Arch" ] || [ $DISTRO == "ManjaroLinux" ] ; then
 		echo "Arch Base Distro :)"
 		arch_install
 	elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "Fedora" ] || [ $DISTRO == "rhel" ] ; then
-		echo "Redhat Distro :)"
+		echo "Redhat Base Distro :)"
 	else
 		echo $DISTRO
 		echo "Your distro is not supported :("
