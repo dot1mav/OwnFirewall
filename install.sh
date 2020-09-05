@@ -8,11 +8,18 @@ DEBIAN_NAME="Debian"
 FILENAME="/etc/os-release"
 UNAME=""
 
+PYTHON_PKG="python3 python3-pip"
+
 # FUNCTIONS
 db_install(){
 	apt-get update &> /dev/null
 	apt-get upgrade -y &> /dev/null
-	apt-get install python3 python3-pip -y &> /dev/null
+	apt-get install $PYTHON_PKG -y &> /dev/null
+}
+
+arch_install(){
+	pacman -Sy
+	pacman -Sq --noconfirm $PYTHON_PKG
 }
 
 getDistroName(){
@@ -46,16 +53,16 @@ getDistroName(){
 
 install(){
 	getDistroName
-
-	if [ $DISTRO == "Mint" ] || [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubintu" ] ; then
-		echo "Debian Distro :)"
+	echo $DISTRO
+	if [ $DISTRO == "Mint" ] || [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubuntu" ] ; then
+		echo "Debian Base Distro :)"
 		db_install
 	elif [ $DISTRO == "Arch" ] || [ $DISTRO == "ManjaroLinux" ] ; then
 		echo "Arch Base Distro :)"
+		arch_install
 	elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "Fedora" ] || [ $DISTRO == "rhel" ] ; then
-		echo "Redhat Distro :)"
+		echo "Redhat Base Distro :)"
 	else
-		echo $DISTRO
 		echo "Your distro is not supported :("
 		exit
 	fi
