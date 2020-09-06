@@ -1,13 +1,14 @@
-from script import Script
 import os
+
+from .script import Script
 
 def clear_firewall() -> None:
     print("Do You Want Clear Your Rules(y/d=n)")
-    temp: str = input('> ')
-    if temp == 'y':
+    answer: str = input('> ')
+    if answer.lower() == 'y':
         print('Are You Sure(Delete filter&nat&mangle(y/d=n)')
-        temp: str = input('> ')
-        if temp == 'y':
+        answer: str = input('> ')
+        if answer.lower() == 'y':
             os.system('iptables -t filter -F')
             os.system('iptables -t nat -F')
             os.system('iptables -t mangle -F')
@@ -31,10 +32,13 @@ if __name__ == '__main__':
     print('make startup this feature')
     st.make_service()
     print('install port scanner blocker(y/n)(default=y)')
-    temp: str = input('> ')
-    if temp == 'y' or temp is None:
+
+    answer: str = input('> ')
+    if answer.lower() == 'y' or answer is None:
         st.install_def_ps()
+
     print('install fail2ban(y/n)(default=y)')
-    temp: str = input('> ')
-    if temp == 'y' or temp is None:
+
+    answer: str = input('> ')
+    if answer.lower() == 'y' or answer is None:
         st.install_fail2ban()
