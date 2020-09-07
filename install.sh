@@ -12,9 +12,9 @@ PYTHON_PKG="python3 python3-pip"
 
 # FUNCTIONS
 db_install(){
-	apt-get update &> /dev/null
-	apt-get upgrade -y &> /dev/null
-	apt-get install $PYTHON_PKG -y &> /dev/null
+	apt-get update
+	apt-get upgrade -y
+	apt-get install $PYTHON_PKG -y
 }
 
 arch_install(){
