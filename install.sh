@@ -71,7 +71,7 @@ install(){
 	python3 -m pipenv check &> /dev/null
 	python3 -m pipenv lock &> /dev/null
 	python3 -m pipenv update &> /dev/null
-	pythone -m pipenv install -r req.txt &> /dev/null
+	pythone -m pipenv install -r  requirements.txt &> /dev/null
 	clear
 
 
