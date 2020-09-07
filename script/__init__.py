@@ -21,8 +21,10 @@ class Script(object):
             print('you installed the script')
             exit(0)
 
-
     def make_service(self) -> None:
+        print('..........................................................\n'
+              + '.............Configuration System And Startup.............\n'
+              + '.........................................................')
         os.system(f'bash MakeStartupFiles.sh')
 
     def config_srv(self) -> None:

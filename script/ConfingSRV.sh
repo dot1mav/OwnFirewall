@@ -130,17 +130,5 @@ iptables -A INPUT -j DROP
 iptables -A OUTPUT -j DROP
 iptables -A FORWARD -j DROP
 echo ".........................................................."
-
-
-
-
-echo ".........................................................."
-echo ".............Configuration System And Startup............."
-echo ".........................................................."
-chmod 777 -R /Firewall/*
-bash Save.sh
-mv iptables-2 .iptables.backup
-mv /home/.iptables.save /home/.iptables.save.backup
-mv /root/.iptables.save /root/.iptables.save.backup
-mv /.iptables.save /.iptables.save.backup
-bash MakeStartupFiles.sh
+clear
+."
