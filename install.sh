@@ -62,6 +62,8 @@ install(){
 		arch_install
 	elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "Fedora" ] || [ $DISTRO == "rhel" ] ; then
 		echo "Redhat Base Distro :)"
+		echo "Not supportet yet :("
+		exit
 	else
 		echo "Your distro is not supported :("
 		exit
