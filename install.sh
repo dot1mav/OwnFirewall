@@ -57,7 +57,7 @@ install(){
 	if [ $DISTRO == "Mint" ] || [ $DISTRO == "Debian" ] || [ $DISTRO == "Ubuntu" ] ; then
 		echo "Debian Base Distro :)"
 		db_install
-	elif [ $DISTRO == "Arch" ] || [ $DISTRO == "ManjaroLinux" ] ; then
+	elif [ $DISTRO == "Arch" ] || [ $DISTRO == "Manjaro" ] || [ $DISTRO == "ManjaroLinux" ] ; then
 		echo "Arch Base Distro :)"
 		arch_install
 	elif [ $DISTRO == "CentOS" ] || [ $DISTRO == "Fedora" ] || [ $DISTRO == "rhel" ] ; then
