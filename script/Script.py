@@ -21,6 +21,13 @@ class Script(object):
             print('you installed the script')
             exit(0)
 
+    def __unistall(self) -> None:
+        answer: chr = input("Do you want unistall OwnFirewall (y=Yes/n=No/default=y): ")
+        if answer.lower() == 'y' or answer is None:
+            os.system(f'rm -rf /root/.ownfirewall')
+            os.system(f'rm /etc/init.d/fw')
+            os.system(f'rm /etc/.iptables.save')
+
     def make_service(self) -> None:
         print('..........................................................\n'
               + '.............Configuration System And Startup.............\n'
