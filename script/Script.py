@@ -19,6 +19,7 @@ class Script(object):
     def __check_install(self) -> None:
         if os.path.isfile("/root/.ownfirewall/.config"):
             print('you installed the script')
+            self.__unistall()
             exit(0)
 
     def __unistall(self) -> None:
