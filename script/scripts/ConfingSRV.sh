@@ -131,4 +131,3 @@ iptables -A OUTPUT -j DROP
 iptables -A FORWARD -j DROP
 echo ".........................................................."
 clear
-."
